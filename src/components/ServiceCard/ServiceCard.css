@@ -1,0 +1,146 @@
+.service-card-v2 {
+  display: flex;
+  min-height: 280px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.service-card-v2:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.service-card-left {
+  width: 25%;
+  position: relative;
+  background: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  padding-left: 20px;
+}
+
+.service-card-icon-main {
+  font-size: 56px;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+  z-index: 2;
+  transform: translateX(-10px);
+}
+
+.service-card-diagonal {
+  position: absolute;
+  top: 0;
+  right: -30px;
+  width: 60px;
+  height: 100%;
+  background: var(--accent-color);
+  transform: skewX(-10deg);
+  z-index: 1;
+}
+
+.service-card-right {
+  width: 75%;
+  padding: 40px 40px 40px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+  z-index: 2;
+}
+
+.service-card-meta {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.service-badge-v2 {
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.coming-soon-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.service-icon-img {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+}
+
+.service-title-v2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.service-desc-v2 {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .service-card-v2 {
+    min-height: 200px;
+  }
+  
+  .service-card-left {
+    width: 15% !important;
+  }
+
+  .service-card-icon-main {
+    font-size: 32px !important;
+    transform: none !important;
+  }
+
+  .service-card-diagonal {
+    right: -20px !important;
+    width: 40px !important;
+  }
+
+  .coming-soon-badge {
+    font-size: 8px !important;
+    padding: 4px 8px !important;
+  }
+
+  .service-icon-img {
+    width: 55px !important;
+    height: 55px !important;
+  }
+  
+  .service-card-right {
+    width: 85% !important;
+    padding: 20px 15px 20px 40px !important;
+  }
+
+  .service-title-v2 {
+    font-size: 16px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .service-desc-v2 {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+}

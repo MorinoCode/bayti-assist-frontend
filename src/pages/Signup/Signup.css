@@ -1,0 +1,24 @@
+.terms-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 16px 0;
+  line-height: 1.5;
+}
+
+.terms-text a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.terms-text a:hover {
+  text-decoration: underline;
+}
+
+/* Ensure consistent layout for signup form */
+.login-form .animate-fade {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

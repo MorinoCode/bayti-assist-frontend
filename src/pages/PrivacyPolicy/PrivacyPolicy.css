@@ -1,0 +1,134 @@
+.privacy-page {
+  padding: 120px 5% 60px;
+  background: var(--bg-dark);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.privacy-container {
+  max-width: 900px;
+  width: 100%;
+  padding: 60px;
+  border-radius: 32px;
+}
+
+.privacy-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+}
+
+.privacy-header h1 {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.last-updated {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+}
+
+.privacy-section {
+  margin-bottom: 40px;
+}
+
+.privacy-section h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.privacy-section p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.info-box {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.info-box h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.platform-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.platform-badge.apple {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.platform-badge.google {
+  background: rgba(52, 168, 83, 0.1);
+  color: #34a853;
+}
+
+.apple-compliance, .google-compliance {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.privacy-section ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.privacy-section li {
+  padding-left: 24px;
+  position: relative;
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+.privacy-section li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.privacy-footer {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.privacy-footer p {
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .privacy-container {
+    padding: 30px 20px;
+  }
+  
+  .privacy-header h1 {
+    font-size: 32px;
+  }
+}

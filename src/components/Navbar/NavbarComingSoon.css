@@ -1,0 +1,17 @@
+.coming-soon-link {
+  position: relative;
+}
+
+.coming-soon-link::after {
+  content: 'Beta';
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: #ef4444;
+  color: white;
+  font-size: 8px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+}

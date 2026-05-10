@@ -1,0 +1,373 @@
+.worker-card {
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: row; /* Horizontal layout on all devices */
+  width: 100%;
+  max-width: 450px;
+  height: 180px; /* Compact height for mobile */
+  padding: 0 !important;
+  background: rgba(15, 17, 26, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 20px;
+}
+
+.worker-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Unified Layout for Pending & Active States */
+.pending-card,
+.active-card {
+  display: flex;
+  flex-direction: row;
+  padding: 0 !important;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .worker-card {
+    height: 220px;
+  }
+}
+
+.card-left {
+  width: 35%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .card-left {
+    width: 40%;
+  }
+}
+
+.vibrant-avatar {
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vibrant-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: contrast(1.1) brightness(1);
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.3) 0%, transparent 100%);
+  mix-blend-mode: overlay;
+}
+
+.avatar-overlay.active-overlay {
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.4) 0%, transparent 100%);
+}
+
+.card-right {
+  width: 65%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Align top, middle, bottom */
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  flex: 1;
+}
+
+.card-top {
+  width: 100%;
+}
+
+.card-middle {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-bottom {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .card-right {
+    width: 60%;
+    padding: 24px;
+  }
+}
+
+/* ID Badge Old (deprecated but kept for fallback) */
+.id-badge {
+  display: none;
+}
+
+.waiting-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #6366f1; /* Primary color for title */
+  margin-bottom: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  white-space: nowrap; /* Prevents text breaking */
+}
+
+@media (min-width: 768px) {
+  .waiting-title { font-size: 15px; }
+}
+
+.worker-name-display {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize; /* Capitalizes first letter */
+}
+
+@media (min-width: 768px) {
+  .worker-name-display { font-size: 24px; }
+}
+
+.id-badge-new {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 16px;
+}
+
+.waiting-title.active-title {
+  color: var(--primary);
+}
+
+.waiting-title.text-red {
+  color: #ef4444;
+}
+
+.pending-card.rejected {
+  opacity: 0.9;
+}
+
+.pending-card.rejected .avatar-overlay {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.6) 0%, transparent 100%);
+}
+
+.waiting-msg {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .waiting-msg { font-size: 13px; line-height: 1.5; margin-bottom: 20px; -webkit-line-clamp: 3; }
+}
+
+.delete-request-btn,
+.manage-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+@media (min-width: 768px) {
+  .delete-request-btn,
+  .manage-btn { padding: 10px; font-size: 13px; gap: 8px; }
+}
+
+.delete-request-btn {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.delete-request-btn:hover {
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+.manage-btn {
+  background: #ffffff !important;
+  border: none;
+  color: #0f111a !important;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.btn-icon-custom {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.manage-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: #f8fafc !important;
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Regular Card Styles (Fallback) */
+.worker-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.worker-avatar {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+.worker-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.status-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #1a1b26;
+}
+
+.status-indicator.online {
+  background: #10b981;
+}
+
+.status-indicator.away {
+  background: #f59e0b;
+}
+
+.status-indicator.offline {
+  background: #6b7280;
+}
+
+.worker-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.worker-name {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.worker-id {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.worker-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.worker-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.track-btn {
+  flex: 2;
+  padding: 10px !important;
+  font-size: 13px !important;
+}
+
+.history-btn {
+  flex: 1;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Custom Toast Styles (Shared) */
+.toast-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 280px;
+}
+
+.toast-confirm p {
+  margin: 0;
+  font-size: 15px;
+  color: white;
+  text-align: center;
+}
+
+.toast-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.toast-actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+
+.confirm-yes {
+  background: #ef4444;
+  color: white;
+}
+
+.confirm-no {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}

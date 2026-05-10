@@ -1,0 +1,196 @@
+.company-profile-page {
+  padding: 120px 20px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.profile-header {
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 24px;
+  transition: color 0.2s;
+}
+
+.back-btn:hover {
+  color: white;
+}
+
+.company-hero {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.c-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.company-hero h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.company-hero p {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.filters-section {
+  display: flex;
+  gap: 20px;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-group label {
+  color: var(--text-muted);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-group select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.workers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.worker-public-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.w-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: white;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.w-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.worker-public-card h3 {
+  font-size: 18px;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.w-role {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.w-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+
+.w-footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.w-status {
+  padding: 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.w-status.available {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.w-status.rented {
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.contact-agency-btn {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.contact-agency-btn:hover {
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px);
+}
+
+.no-workers {
+  text-align: center;
+  padding: 60px;
+  color: var(--text-muted);
+}

@@ -1,0 +1,124 @@
+.services-page {
+  padding: 120px 5% 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.services-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.services-title {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.services-subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 100px;
+}
+
+.service-card {
+  padding: 40px;
+  border-radius: 24px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.service-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(var(--service-color), 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  font-size: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.service-name {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #fff;
+}
+
+.service-desc {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+}
+
+.service-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.services-footer {
+  text-align: center;
+  padding: 80px;
+  border-radius: 32px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+}
+
+.services-footer h2 {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.services-footer p {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .services-page {
+    padding-top: 50px;
+  }
+  
+  .services-title {
+    font-size: 32px;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .services-footer {
+    padding: 40px 20px;
+  }
+}
