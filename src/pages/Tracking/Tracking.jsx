@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import TrackWorkerCard from '../../components/TrackWorkerCard/TrackWorkerCard';
 import LiveMap from '../../components/LiveMap/LiveMap';
 import MicListener from '../../components/MicListener/MicListener';
@@ -7,6 +8,7 @@ import { socket } from '../../socket';
 import './Tracking.css';
 
 const Tracking = () => {
+  const { t } = useTranslation();
   const [workers, setWorkers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTracking, setActiveTracking] = useState(null);
@@ -65,25 +67,25 @@ const Tracking = () => {
     syncTracking();
   }, [workers]);
 
-  if (loading) return <div className="tracking-loading">Initializing Tracking System...</div>;
+  if (loading) return <div className="tracking-loading">{t('initializing_tracking')}</div>;
 
   return (
     <div className="tracking-container animate-fade">
       {/* ... header ... */}
       <div className="tracking-header">
         <div className="header-info">
-          <h1>Real-time Tracking</h1>
-          <p>Monitor your staff's location and hardware status.</p>
+          <h1>{t('realtime_tracking')}</h1>
+          <p>{t('tracking_subtitle')}</p>
         </div>
         <div className="live-status">
           <div className="pulse-dot"></div>
-          <span>System Live</span>
+          <span>{t('system_live')}</span>
         </div>
       </div>
 
       {workers.length === 0 ? (
         <div className="no-workers-tracking glass-card">
-          <p>You don't have any registered workers yet.</p>
+          <p>{t('no_registered_workers')}</p>
         </div>
       ) : (
         <div className="tracking-grid">
@@ -103,7 +105,7 @@ const Tracking = () => {
         <LiveMap
           employmentId={activeTracking._id}
           workerId={activeTracking.worker?._id}
-          workerName={activeTracking.nickname || activeTracking.worker?.name || 'Worker'}
+          workerName={activeTracking.nickname || activeTracking.worker?.name || t('domestic_staff')}
           workerPhone={activeTracking.phone || activeTracking.worker?.phone}
           initialLocation={activeTracking.worker?.lastLocation}
           workerAvatar={activeTracking.worker?.avatar}
@@ -118,7 +120,7 @@ const Tracking = () => {
       {activeMic && (
         <MicListener
           workerId={activeMic.worker?._id}
-          workerName={activeMic.nickname || activeMic.worker?.name || 'Worker'}
+          workerName={activeMic.nickname || activeMic.worker?.name || t('domestic_staff')}
           onStop={handleMicStop}
         />
       )}
@@ -126,7 +128,7 @@ const Tracking = () => {
       {activeCam && (
         <CamListener
           workerId={activeCam.worker?._id}
-          workerName={activeCam.nickname || activeCam.worker?.name || 'Worker'}
+          workerName={activeCam.nickname || activeCam.worker?.name || t('domestic_staff')}
           onStop={handleCamStop}
         />
       )}

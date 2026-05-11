@@ -393,82 +393,110 @@
   color: white;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 992px) {
   .profile-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
   }
+  
+  .profile-side-col {
+    order: -1;
+    margin-bottom: 0;
+  }
+  
   .profile-top {
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 32px;
     text-align: center;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
+  
   .avatar-section {
     flex-direction: column;
+    gap: 16px;
   }
-  .form-grid {
-    grid-template-columns: 1fr;
+
+  .header-actions {
+    width: 100%;
+    justify-content: center;
   }
 }
 
 @media (max-width: 600px) {
   .profile-container {
-    padding: 12px;
-    margin-top: 60px;
+    padding: 80px 16px 40px;
   }
   
   .profile-content {
-    padding: 20px;
+    padding: 0;
   }
 
   .user-meta h1 {
-    font-size: 22px;
+    font-size: 24px;
+    letter-spacing: -0.5px;
+  }
+
+  .avatar-wrapper {
+    width: 100px;
+    height: 100px;
+    border-radius: 24px;
   }
 
   .header-actions {
-    width: 100%;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
   }
 
   .header-actions button {
-    width: 100%;
-    padding: 12px !important;
-    font-size: 14px !important;
+    width: 100% !important;
+    padding: 14px !important;
+    font-size: 15px !important;
+    height: 48px !important;
   }
 
-  .worker-id-pill {
-    padding: 6px 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
-  .worker-id-pill .id {
-    font-size: 11px;
+  .profile-section {
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
   }
 
-  .pill-actions {
-    margin-left: 0;
-    padding-left: 0;
-    border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 8px;
-    width: 100%;
-    justify-content: center;
+  .section-title h2 {
+    font-size: 17px;
+  }
+
+  .input-wrapper {
+    height: 52px;
   }
 
   .security-item, .danger-item {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 16px;
+    padding: 20px;
   }
 
   .security-item button, .danger-item button {
     width: 100% !important;
+    height: 46px;
   }
 
-  .danger-zone .section-header h2 {
-    font-size: 18px;
+  .subscription-card {
+    padding: 20px;
+  }
+
+  .sub-header {
+    gap: 12px;
+  }
+
+  .sub-icon {
+    width: 40px;
+    height: 40px;
   }
 }

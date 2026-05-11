@@ -54,12 +54,13 @@
 }
 
 .v3-title {
-  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-size: clamp(1.5rem, 6vw, 3rem);
   font-weight: 900;
   letter-spacing: -0.04em;
-  line-height: 1;
+  line-height: 1.1;
   margin-bottom: 16px;
   color: #fff;
+  text-wrap: balance;
 }
 
 .v3-title .name {
@@ -67,6 +68,7 @@
   background: linear-gradient(to right, #818cf8, #c084fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-transform: capitalize;
 }
 
 .v3-desc {
@@ -78,7 +80,8 @@
 /* Stats */
 .v3-stats {
   display: flex;
-  gap: 20px;
+  gap: 12px;
+  width: 100%;
 }
 
 .v3-stat-card {
@@ -110,7 +113,7 @@
 }
 
 .v3-stat-val {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: #fff;
   line-height: 1;
@@ -338,10 +341,11 @@
 @media (max-width: 768px) {
   .employer-dashboard-v3 { padding: 100px 20px 40px; }
   .v3-side { grid-template-columns: 1fr; }
-  .v3-title { font-size: 2.5rem; }
+  .v3-title { font-size: 1.5rem; line-height: 1.2; }
+  .v3-stats { display: none !important; }
   .v3-workers-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-  .v3-stats { flex-direction: column; }
+  .v3-stats { flex-direction: row !important; }
 }

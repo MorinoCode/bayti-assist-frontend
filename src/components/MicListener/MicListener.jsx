@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { socket } from '../../socket';
 
 const ICE_SERVERS = [
@@ -12,6 +13,7 @@ const ICE_SERVERS = [
 ];
 
 const MicListener = ({ workerId, workerName, onStop }) => {
+  const { t } = useTranslation();
   const pcRef = useRef(null);
   const audioRef = useRef(null);
   const workerSocketId = useRef(null);
@@ -63,9 +65,14 @@ const MicListener = ({ workerId, workerName, onStop }) => {
       }
     };
 
+    const onUnavailable = ({ reason }) => {
+      setStatus(reason === 'permission_denied' ? 'permission_denied' : 'error');
+    };
+
     socket.on('mic-offer', onOffer);
     socket.on('mic-ice-candidate', onIceCandidate);
     socket.on('mic-stop', onStop);
+    socket.on('mic-unavailable', onUnavailable);
 
     socket.emit('mic-request', { workerId });
 
@@ -73,6 +80,7 @@ const MicListener = ({ workerId, workerName, onStop }) => {
       socket.off('mic-offer', onOffer);
       socket.off('mic-ice-candidate', onIceCandidate);
       socket.off('mic-stop', onStop);
+      socket.off('mic-unavailable', onUnavailable);
       if (workerSocketId.current) {
         socket.emit('mic-stop', { toSocketId: workerSocketId.current });
       }
@@ -82,10 +90,12 @@ const MicListener = ({ workerId, workerName, onStop }) => {
   }, [workerId, onStop]);
 
   const label = {
-    requesting: 'Requesting microphone…',
-    connecting: 'Connecting…',
-    live: `Listening — ${workerName}`,
-  }[status];
+    requesting: t('requesting_mic'),
+    connecting: t('connecting'),
+    live: t('listening_to', { name: workerName }),
+    permission_denied: `🔒 ${workerName}: mic permission denied`,
+    error: `⚠️ Mic unavailable`,
+  }[status] ?? t('requesting_mic');
 
   return (
     <div style={{
@@ -108,7 +118,7 @@ const MicListener = ({ workerId, workerName, onStop }) => {
         color: '#fff', borderRadius: 6, padding: '3px 10px',
         cursor: 'pointer', fontSize: 12, fontFamily: 'inherit',
       }}>
-        Stop
+        {t('stop')}
       </button>
     </div>
   );

@@ -73,7 +73,7 @@ const EmployerDashboard = () => {
             <h1 className="v3-title">
               {t('welcome_back')}, <span className="name">{userInfo.name || t('employer')}</span>
             </h1>
-            <p className="v3-desc">Monitoring and managing your household staff made simple.</p>
+            <p className="v3-desc">{t('dashboard_desc')}</p>
           </div>
           
           <div className="v3-stats">
@@ -83,7 +83,7 @@ const EmployerDashboard = () => {
               </div>
               <div className="v3-stat-content">
                 <span className="v3-stat-val">{workers.length}</span>
-                <span className="v3-stat-lbl">Total Staff</span>
+                <span className="v3-stat-lbl">{t('total_staff')}</span>
               </div>
             </div>
             <div className="v3-stat-card">
@@ -92,7 +92,7 @@ const EmployerDashboard = () => {
               </div>
               <div className="v3-stat-content">
                 <span className="v3-stat-val">{workers.filter(w => w.status === 'online').length}</span>
-                <span className="v3-stat-lbl">Active Now</span>
+                <span className="v3-stat-lbl">{t('active_now')}</span>
               </div>
             </div>
           </div>
@@ -103,9 +103,9 @@ const EmployerDashboard = () => {
             <div className="v3-section">
               <div className="v3-section-head">
                 <div className="head-title">
-                  <h2>Your Staff</h2>
+                  <h2>{t('your_staff')}</h2>
                 </div>
-                <button className="v3-refresh-btn" onClick={fetchWorkers}>Refresh List</button>
+                <button className="v3-refresh-btn" onClick={fetchWorkers}>{t('refresh_list')}</button>
               </div>
               
               <div className="v3-workers-grid">
@@ -120,10 +120,10 @@ const EmployerDashboard = () => {
                 ) : (
                   <div className="v3-empty">
                     <div className="v3-empty-art">👥</div>
-                    <h4>No workers added</h4>
-                    <p>Invite your domestic staff to start tracking their location and managing their access.</p>
+                    <h4>{t('no_workers')}</h4>
+                    <p>{t('no_workers_desc')}</p>
                     <button className="v3-primary-btn" onClick={() => navigate('/my-workers')}>
-                      Invite Your First Worker
+                      {t('invite_first_worker')}
                     </button>
                   </div>
                 )}
@@ -134,22 +134,22 @@ const EmployerDashboard = () => {
           <aside className="v3-side">
             <div className="v3-side-block">
               <div className="v3-block-head">
-                <h3>Quick Actions</h3>
+                <h3>{t('quick_actions')}</h3>
               </div>
               <div className="v3-action-stack">
                 <button className="v3-side-btn" onClick={() => navigate('/tracking')}>
                   <div className="side-btn-icon">📍</div>
                   <div className="side-btn-text">
-                    <strong>Tracking Map</strong>
-                    <span>Live location monitoring</span>
+                    <strong>{t('tracking_map')}</strong>
+                    <span>{t('live_location_monitoring')}</span>
                   </div>
                   <ArrowRight size={14} />
                 </button>
                 <button className="v3-side-btn" onClick={() => navigate('/my-workers')}>
                   <div className="side-btn-icon">✉️</div>
                   <div className="side-btn-text">
-                    <strong>New Invite</strong>
-                    <span>Send onboarding link</span>
+                    <strong>{t('new_invite')}</strong>
+                    <span>{t('send_onboarding_link')}</span>
                   </div>
                   <ArrowRight size={14} />
                 </button>
@@ -160,15 +160,15 @@ const EmployerDashboard = () => {
               <div className="v3-promo-icon">
                 <Shield size={28} />
               </div>
-              <h4>Security Monitoring</h4>
-              <p>All staff connections are secured with end-to-end encryption. Last security audit performed today.</p>
-              <div className="v3-promo-tag">System Secure</div>
+              <h4>{t('security_monitoring')}</h4>
+              <p>{t('security_desc')}</p>
+              <div className="v3-promo-tag">{t('system_secure')}</div>
             </div>
 
             <div className="v3-mini-card">
               <div className="v3-mini-flex">
                 <Shield size={18} />
-                <span>End-to-end Encryption Active</span>
+                <span>{t('encryption_active')}</span>
               </div>
             </div>
           </aside>

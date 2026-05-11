@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { socket } from '../../socket';
 
 const ICE_SERVERS = [
@@ -12,6 +13,7 @@ const ICE_SERVERS = [
 ];
 
 const CamListener = ({ workerId, workerName, onStop }) => {
+  const { t } = useTranslation();
   const pcRef = useRef(null);
   const videoRef = useRef(null);
   const workerSocketId = useRef(null);
@@ -63,9 +65,14 @@ const CamListener = ({ workerId, workerName, onStop }) => {
       }
     };
 
+    const onUnavailable = ({ reason }) => {
+      setStatus(reason === 'permission_denied' ? 'permission_denied' : 'error');
+    };
+
     socket.on('cam-offer', onOffer);
     socket.on('cam-ice-candidate', onIceCandidate);
     socket.on('cam-stop', onStop);
+    socket.on('cam-unavailable', onUnavailable);
 
     socket.emit('cam-request', { workerId });
 
@@ -73,6 +80,7 @@ const CamListener = ({ workerId, workerName, onStop }) => {
       socket.off('cam-offer', onOffer);
       socket.off('cam-ice-candidate', onIceCandidate);
       socket.off('cam-stop', onStop);
+      socket.off('cam-unavailable', onUnavailable);
       if (workerSocketId.current) {
         socket.emit('cam-stop', { toSocketId: workerSocketId.current });
       }
@@ -87,7 +95,7 @@ const CamListener = ({ workerId, workerName, onStop }) => {
         <div className="cam-header">
           <div className="header-left">
             <span className={`pulse-dot ${status === 'live' ? 'live' : 'requesting'}`} />
-            <h3>{status === 'live' ? 'Live Stream' : 'Establishing Connection...'}</h3>
+            <h3>{status === 'live' ? t('live_stream') : t('establishing_connection')}</h3>
           </div>
           <button className="close-btn" onClick={onStop}>&times;</button>
         </div>
@@ -95,9 +103,39 @@ const CamListener = ({ workerId, workerName, onStop }) => {
         <div className="video-container">
           {status !== 'live' && (
             <div className="video-placeholder">
-              <div className="loader"></div>
-              <p>{status === 'requesting' ? 'Requesting Camera...' : 'Connecting...'}</p>
-              <span>Waiting for {workerName} to respond</span>
+              {status === 'permission_denied' || status === 'error' ? (
+                <>
+                  <span style={{ fontSize: 36 }}>
+                    {status === 'permission_denied' ? '🔒' : '⚠️'}
+                  </span>
+                  <p style={{ color: '#f87171', margin: 0 }}>
+                    {status === 'permission_denied'
+                      ? t('camera_permission_denied_worker')
+                      : t('camera_unavailable')}
+                  </p>
+                  <button
+                    onClick={onStop}
+                    style={{
+                      marginTop: 8,
+                      background: 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      color: '#fff',
+                      borderRadius: 8,
+                      padding: '6px 16px',
+                      cursor: 'pointer',
+                      fontSize: 13,
+                    }}
+                  >
+                    {t('close')}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="loader"></div>
+                  <p>{status === 'requesting' ? t('requesting_camera') : t('connecting')}</p>
+                  <span>{t('waiting_for_respond', { name: workerName })}</span>
+                </>
+              )}
             </div>
           )}
           <video 
@@ -109,8 +147,8 @@ const CamListener = ({ workerId, workerName, onStop }) => {
         </div>
 
         <div className="cam-footer">
-          <span className="worker-name">Worker: {workerName}</span>
-          <button className="stop-btn" onClick={onStop}>Stop Live View</button>
+          <span className="worker-name">{t('worker')}: {workerName}</span>
+          <button className="stop-btn" onClick={onStop}>{t('stop_live_view')}</button>
         </div>
       </div>
 

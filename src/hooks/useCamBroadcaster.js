@@ -36,13 +36,13 @@ export const useCamBroadcaster = (enabled = true) => {
     const onCamRequest = async ({ fromSocketId }) => {
       stop();
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-          audio: true, 
-          video: { 
-            facingMode: 'user',
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+          video: {
+            facingMode: 'environment',
             width: { ideal: 640 },
-            height: { ideal: 480 }
-          } 
+            height: { ideal: 480 },
+          },
         });
         streamRef.current = stream;
 
@@ -63,6 +63,10 @@ export const useCamBroadcaster = (enabled = true) => {
         setIsActive(true);
       } catch (err) {
         console.error('[CamBroadcaster] getUserMedia failed:', err.name, err.message);
+        const reason = err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError'
+          ? 'permission_denied'
+          : 'hardware_error';
+        socket.emit('cam-unavailable', { toSocketId: fromSocketId, reason });
         setIsActive(false);
       }
     };

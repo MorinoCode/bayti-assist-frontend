@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import whatsappIcon from '../../assets/whatsapplogo.png';
 import gpsIcon from '../../assets/homepage/trackgps.png';
 import micIcon from '../../assets/homepage/trackmicrophone.png';
@@ -6,6 +7,7 @@ import { getAvatarPath } from '../../utils/avatarMapper';
 import './TrackWorkerCard.css';
 
 const TrackWorkerCard = ({ workerData, onTrack, onMic, onCam }) => {
+  const { t } = useTranslation();
   const { worker, nickname, permissions, phone: customPhone } = workerData;
   const phone = customPhone || worker?.phone;
   const isOnline = worker?.status === 'online';
@@ -30,8 +32,8 @@ const TrackWorkerCard = ({ workerData, onTrack, onMic, onCam }) => {
       </div>
 
       <div className="worker-identity">
-        <h3 className="worker-name-modern">{nickname || worker?.name || 'Worker'}</h3>
-        <p className="worker-id-modern">ID: #{worker?._id?.slice(-6).toUpperCase() || 'BB6AC'}</p>
+        <h3 className="worker-name-modern">{nickname || worker?.name || t('domestic_staff')}</h3>
+        <p className="worker-id-modern">{t('id_label', { defaultValue: 'ID' })}: #{worker?._id?.slice(-6).toUpperCase() || 'BB6AC'}</p>
       </div>
 
       <div className="tracking-actions-modern">
@@ -41,7 +43,6 @@ const TrackWorkerCard = ({ workerData, onTrack, onMic, onCam }) => {
           disabled={permissions?.liveTracking !== 'granted'}
         >
           <img src={gpsIcon} alt="Track" className="tile-icon" />
-          <span>TRACK</span>
         </button>
         
         <button 
@@ -50,7 +51,6 @@ const TrackWorkerCard = ({ workerData, onTrack, onMic, onCam }) => {
           disabled={!phone}
         >
           <img src={whatsappIcon} alt="Chat" className="tile-icon" />
-          <span>CHAT</span>
         </button>
 
         <button 
@@ -59,7 +59,6 @@ const TrackWorkerCard = ({ workerData, onTrack, onMic, onCam }) => {
           disabled={permissions?.microphone !== 'granted'}
         >
           <img src={micIcon} alt="Mic" className="tile-icon" />
-          <span>MIC</span>
         </button>
 
         <button 
@@ -68,7 +67,6 @@ const TrackWorkerCard = ({ workerData, onTrack, onMic, onCam }) => {
           disabled={permissions?.camera !== 'granted'}
         >
           <img src={camIcon} alt="Camera" className="tile-icon" />
-          <span>CAMERA</span>
         </button>
       </div>
     </div>

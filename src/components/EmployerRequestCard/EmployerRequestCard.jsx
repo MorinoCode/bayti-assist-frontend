@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from '../Button/Button';
 import employerWaiting from '../../assets/employerWaiting.png';
 import './EmployerRequestCard.css';
 
 const EmployerRequestCard = ({ request, onRespond }) => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAction = async (status) => {
@@ -23,9 +25,9 @@ const EmployerRequestCard = ({ request, onRespond }) => {
       
       <div className="card-right">
         <div className="pending-content">
-          <div className="id-badge">ID: #{request.employer._id.slice(-5)}</div>
-          <h3 className="waiting-title">New Invitation</h3>
-          <p className="waiting-msg">{request.employer.name} wants to hire you</p>
+          <div className="id-badge">{t('id_label')}: #{request.employer._id.slice(-5)}</div>
+          <h3 className="waiting-title">{t('new_invitation')}</h3>
+          <p className="waiting-msg">{t('wants_to_hire', { name: request.employer.name })}</p>
           
           <div className="pending-actions horizontal">
             <Button 
@@ -33,14 +35,14 @@ const EmployerRequestCard = ({ request, onRespond }) => {
               onClick={() => handleAction('accepted')}
               isLoading={isLoading}
             >
-              Accept
+              {t('accept')}
             </Button>
             <button 
               className="decline-btn" 
               onClick={() => handleAction('rejected')}
               disabled={isLoading}
             >
-              Decline
+              {t('decline')}
             </button>
           </div>
         </div>

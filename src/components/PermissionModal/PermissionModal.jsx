@@ -1,37 +1,36 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { MapPin, Camera, Mic, X, ShieldCheck, Lock } from 'lucide-react';
 import './PermissionModal.css';
 
 const PermissionModal = ({ isOpen, onClose, type, onConfirm }) => {
+  const { t } = useTranslation();
   if (!isOpen) return null;
 
   const config = {
     location: {
-      title: 'Location Access Required',
+      title: t('location_access_title'),
       icon: <MapPin size={48} className="perm-icon location" />,
-      description: 'This app collects your location data to enable your employer to monitor your real-time position during working hours for safety coordination, attendance verification, and emergency response.',
-      dataCollected: 'GPS coordinates (latitude, longitude) and timestamps',
-      howUsed: 'Shared with your employer via the Bayti Assist dashboard in real-time. Stored securely for attendance records.',
-      benefit: 'Ensures your safety and provides verifiable proof of your working hours and location.',
-      privacy: 'Location tracking is only active while the permission is granted. You can revoke access at any time from your Employer Management page. Location data is never shared with third parties.'
+      description: t('location_access_desc'),
+      dataCollected: t('location_data_points'),
+      howUsed: t('location_usage'),
+      privacy: t('location_privacy')
     },
     camera: {
-      title: 'Camera Access Required',
+      title: t('camera_access_title'),
       icon: <Camera size={48} className="perm-icon camera" />,
-      description: 'This app requires camera access to enable your employer to initiate a live video session for visual check-ins and real-time communication.',
-      dataCollected: 'Live video stream via peer-to-peer connection',
-      howUsed: 'Video is streamed directly to your employer in real-time. Video is NEVER recorded, stored, or transmitted to any server.',
-      benefit: 'Enables quick visual communication with your employer for task coordination and safety checks.',
-      privacy: 'The camera is only activated when your employer initiates a session. You will see a visible indicator whenever the camera is active. Video streams are encrypted end-to-end using WebRTC (DTLS-SRTP).'
+      description: t('camera_access_desc'),
+      dataCollected: t('camera_data_points'),
+      howUsed: t('camera_usage'),
+      privacy: t('camera_privacy')
     },
     microphone: {
-      title: 'Microphone Access Required',
+      title: t('mic_access_title'),
       icon: <Mic size={48} className="perm-icon mic" />,
-      description: 'This app requires microphone access to enable your employer to initiate a live audio session for voice communication and urgent instructions.',
-      dataCollected: 'Live audio stream via peer-to-peer connection',
-      howUsed: 'Audio is streamed directly to your employer in real-time. Audio is NEVER recorded, stored, or transmitted to any server.',
-      benefit: 'Enables clear voice communication for instructions, updates, and emergency situations.',
-      privacy: 'The microphone is only activated when your employer initiates a session. You will see a visible indicator whenever audio is being streamed. Audio streams are encrypted end-to-end using WebRTC (DTLS-SRTP).'
+      description: t('mic_access_desc'),
+      dataCollected: t('mic_data_points'),
+      howUsed: t('mic_usage'),
+      privacy: t('mic_privacy')
     }
   };
 
@@ -58,38 +57,38 @@ const PermissionModal = ({ isOpen, onClose, type, onConfirm }) => {
             <div className="feature-item">
               <Lock size={16} className="check-icon" />
               <div>
-                <strong>Data Collected</strong>
+                <strong>{t('data_collected')}</strong>
                 <p>{current.dataCollected}</p>
               </div>
             </div>
             <div className="feature-item">
               <ShieldCheck size={16} className="check-icon" />
               <div>
-                <strong>How It's Used</strong>
+                <strong>{t('how_used')}</strong>
                 <p>{current.howUsed}</p>
               </div>
             </div>
             <div className="feature-item">
               <ShieldCheck size={16} className="check-icon" />
               <div>
-                <strong>Your Privacy</strong>
+                <strong>{t('your_privacy')}</strong>
                 <p>{current.privacy}</p>
               </div>
             </div>
           </div>
 
           <div className="compliance-note">
-            <p>This app complies with Apple App Store and Google Play Store guidelines for sensitive permissions. Your data is protected under applicable privacy and labor laws. You can revoke this permission at any time. <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Read our Privacy Policy</a></p>
+            <p>{t('compliance_note')} <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">{t('read_privacy_policy')}</a></p>
           </div>
         </div>
 
         <div className="perm-footer">
-          <button className="cancel-perm-btn" onClick={onClose}>Decline</button>
+          <button className="cancel-perm-btn" onClick={onClose}>{t('decline')}</button>
           <button className="allow-perm-btn" onClick={() => {
             onConfirm(type);
             onClose();
           }}>
-            Allow Access
+            {t('allow_access')}
           </button>
         </div>
       </div>

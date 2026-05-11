@@ -58,15 +58,15 @@ const WorkerDashboard = () => {
       });
 
       if (response.ok) {
-        toast.success(`Request ${status}`);
+        toast.success(t('access_request_sent', { type: t(status) }));
         fetchInvitations();
         if (status === 'accepted') fetchActiveEmployments();
       } else {
         const data = await response.json();
-        toast.error(data.message || 'Failed to respond');
+        toast.error(data.message || t('failed_respond'));
       }
     } catch {
-      toast.error('Error responding to invitation');
+      toast.error(t('error_responding'));
     }
   };
 
@@ -83,7 +83,7 @@ const WorkerDashboard = () => {
             <h1 className="v3-title">
               {t('welcome_back')}, <span className="name">{userInfo.name || t('worker')}</span>
             </h1>
-            <p className="v3-desc">Manage your work relationships and safety settings in one place.</p>
+            <p className="v3-desc">{t('worker_dashboard_desc')}</p>
           </div>
 
           <div className="v3-stats">
@@ -93,7 +93,7 @@ const WorkerDashboard = () => {
               </div>
               <div className="v3-stat-content">
                 <span className="v3-stat-val">{activeEmployments.length}</span>
-                <span className="v3-stat-lbl">Active Jobs</span>
+                <span className="v3-stat-lbl">{t('active_jobs')}</span>
               </div>
             </div>
             <div className="v3-stat-card">
@@ -102,7 +102,7 @@ const WorkerDashboard = () => {
               </div>
               <div className="v3-stat-content">
                 <span className="v3-stat-val">{invitations.length}</span>
-                <span className="v3-stat-lbl">New Invites</span>
+                <span className="v3-stat-lbl">{t('new_invites')}</span>
               </div>
             </div>
           </div>
@@ -112,8 +112,8 @@ const WorkerDashboard = () => {
           <div className="v3-main">
             <div className="v3-section">
               <div className="v3-section-head">
-                <h2>Active Employments</h2>
-                <button className="v3-refresh-btn" onClick={fetchActiveEmployments}>Refresh</button>
+                <h2>{t('active_employments')}</h2>
+                <button className="v3-refresh-btn" onClick={fetchActiveEmployments}>{t('refresh')}</button>
               </div>
               
               <div className="v3-employers-grid">
@@ -126,8 +126,8 @@ const WorkerDashboard = () => {
                     <div className="v3-empty-art">
                       <Briefcase size={40} />
                     </div>
-                    <h4>No employers yet</h4>
-                    <p>Invitations will appear on the right once received.</p>
+                    <h4>{t('no_employers_yet')}</h4>
+                    <p>{t('invitations_appear_here')}</p>
                   </div>
                 )}
               </div>
@@ -137,7 +137,7 @@ const WorkerDashboard = () => {
           <aside className="v3-side">
             <div className="v3-side-block">
               <div className="v3-block-head">
-                <h3>Invitations</h3>
+                <h3>{t('invitations')}</h3>
                 {invitations.length > 0 && <span className="v3-badge">{invitations.length}</span>}
               </div>
               <div className="v3-block-content scrollable">
@@ -153,7 +153,7 @@ const WorkerDashboard = () => {
                   ))
                 ) : (
                   <div className="v3-side-empty">
-                    <p>Clean inbox! No new invites.</p>
+                    <p>{t('clean_inbox')}</p>
                   </div>
                 )}
               </div>
@@ -163,15 +163,15 @@ const WorkerDashboard = () => {
               <div className="v3-promo-icon">
                 <Shield size={28} />
               </div>
-              <h4>Safety Shield</h4>
-              <p>Your location and media access are only shared with authorized employers during work hours.</p>
-              <div className="v3-promo-tag">End-to-End Encrypted</div>
+              <h4>{t('safety_shield')}</h4>
+              <p>{t('safety_shield_desc')}</p>
+              <div className="v3-promo-tag">{t('encryption_active')}</div>
             </div>
 
             <div className="v3-mini-card">
               <div className="v3-mini-flex">
                 <MapPin size={18} />
-                <span>GPS Accuracy: High</span>
+                <span>{t('gps_accuracy')}: {t('high')}</span>
               </div>
             </div>
           </aside>

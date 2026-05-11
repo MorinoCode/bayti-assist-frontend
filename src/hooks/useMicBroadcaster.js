@@ -52,6 +52,10 @@ export const useMicBroadcaster = (enabled = true) => {
         setIsActive(true);
       } catch (err) {
         console.error('[MicBroadcaster] getUserMedia failed:', err.name, err.message);
+        const reason = err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError'
+          ? 'permission_denied'
+          : 'hardware_error';
+        socket.emit('mic-unavailable', { toSocketId: fromSocketId, reason });
         setIsActive(false);
       }
     };

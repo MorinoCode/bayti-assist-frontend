@@ -21,7 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [activeTab, setActiveTab] = useState('employer');
-  const [loginMethod, setLoginMethod] = useState('phone');
+  const [loginMethod, setLoginMethod] = useState('email');
   const [phone, setPhone] = useState('');
   const [countryCode, setCountryCode] = useState('+965');
   const [email, setEmail] = useState('');

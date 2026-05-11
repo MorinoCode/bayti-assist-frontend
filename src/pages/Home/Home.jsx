@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Button from '../../components/Button/Button';
 import manPhone from '../../assets/homepage/employerholdphoneman.png';
@@ -20,6 +20,7 @@ const Home = () => {
   const { t, i18n } = useTranslation();
   const [activeSlide, setActiveSlide] = useState(0);
   const [rotation, setRotation] = useState(0);
+  const navigate = useNavigate();
   const sliderRef = useRef(null);
 
   useEffect(() => {
@@ -76,14 +77,18 @@ const Home = () => {
                 {t('hero_subtitle')}
               </p>
               <div className="hero-btns animate-up delay-2">
-                <Link to="/login">
-                  <Button className="cta-primary">{t('login')}</Button>
-                </Link>
-                <Link to="/signup">
-                  <button className="cta-secondary signup-btn">
-                    {t('signup')}
-                  </button>
-                </Link>
+                <Button 
+                  className="cta-primary" 
+                  onClick={() => navigate('/login')}
+                >
+                  {t('login')}
+                </Button>
+                <Button 
+                  className="cta-secondary signup-btn" 
+                  onClick={() => navigate('/signup')}
+                >
+                  {t('signup')}
+                </Button>
               </div>
               
               <div className="stats-row animate-up delay-3">

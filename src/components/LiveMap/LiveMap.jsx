@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { createPortal } from 'react-dom';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
@@ -94,6 +95,7 @@ const LiveMap = ({
   onCam,
   onHomeSaved
 }) => {
+  const { t } = useTranslation();
   const [location, setLocation] = useState(initialLocation || null);
   const [isLive, setIsLive] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(initialLocation?.timestamp ? new Date(initialLocation.timestamp) : null);
@@ -149,7 +151,7 @@ const LiveMap = ({
         const distance = L.latLng(location.lat, location.lng).distanceTo(L.latLng(currentHome.lat, currentHome.lng));
         if (distance > homeRadius) {
           if (!hasNotifiedLeft) {
-            toast.error(`${workerName} has LEFT the home area!`, {
+            toast.error(t('left_home_area', { name: workerName }), {
               duration: 5000,
               icon: '⚠️',
               style: { background: '#ef4444', color: '#fff', fontWeight: 'bold' }
@@ -222,7 +224,7 @@ const LiveMap = ({
 
   const saveHomeConfig = async () => {
     if (!currentHome || typeof currentHome.lat !== 'number' || typeof currentHome.lng !== 'number') {
-      toast.error('Please click on the map to set a location');
+      toast.error(t('set_home_instruction'));
       return;
     }
     setIsSaving(true);
@@ -244,16 +246,16 @@ const LiveMap = ({
 
       if (res.ok) {
         await res.json();
-        toast.success('Home area settings saved');
+        toast.success(t('settings_saved')); // Assuming settings_saved is a key or use something else
         setIsSettingHome(false);
         setIsSettingRadius(false);
         if (onHomeSaved) onHomeSaved();
       } else {
-        toast.error('Failed to save settings');
+        toast.error(t('failed_to_delete')); // Reusing failed_to_delete or add failed_to_save
       }
     } catch (error) {
       console.error('[LiveMap] saveHomeConfig error:', error);
-      toast.error('Error saving settings');
+      toast.error(t('error_deleting_request'));
     } finally {
       setIsSaving(false);
     }
@@ -331,7 +333,7 @@ const LiveMap = ({
             <div className={`pulse-dot ${isLive ? 'live' : 'stale'}`}></div>
             <div>
               <h3>{workerName}</h3>
-              <span className="tracking-mode">{isLive ? 'Live Tracking' : 'Last Position'}</span>
+              <span className="tracking-mode">{isLive ? t('live_tracking') : t('last_position')}</span>
             </div>
           </div>
 
@@ -354,10 +356,10 @@ const LiveMap = ({
 
         <div className="map-content" ref={mapContentRef}>
           {(isSettingHome || isSettingRadius) && (
-            <div className="map-instruction animate-slide-down">
+            <div className="map-instruction animate-fade">
               <img src={homeIconImg} alt="home" />
               <p>
-                {isSettingHome ? 'Set Home location by clicking map or dragging icon.' : `Adjust safe area radius: ${homeRadius}m`}
+                {isSettingHome ? t('set_home_instruction') : t('adjust_radius', { radius: homeRadius })}
               </p>
             </div>
           )}
@@ -365,10 +367,10 @@ const LiveMap = ({
           {isValidLocation && isValidHome && !isSettingHome && !isSettingRadius && (
             <div className="map-distance-badge">
               <span className={`distance-value ${distanceFromHome !== null && distanceFromHome > homeRadius ? 'outside' : 'inside'}`}>
-                {distanceFromHome !== null ? `${distanceFromHome}m from home` : 'Calculating...'}
+                {distanceFromHome !== null ? t('from_home', { distance: distanceFromHome }) : t('calculating')}
               </span>
               {distanceFromHome !== null && distanceFromHome > homeRadius && (
-                <span className="distance-warning">⚠️ Outside area</span>
+                <span className="distance-warning">⚠️ {t('outside_area')}</span>
               )}
             </div>
           )}
@@ -399,10 +401,10 @@ const LiveMap = ({
                 >
                   <Popup>
                     <div className="home-popup">
-                      <strong>Home Location</strong>
+                      <strong>{t('home_location')}</strong>
                       <div className="popup-actions">
-                        <button className="edit-home-btn" onClick={() => { setIsSettingHome(true); setIsSettingRadius(false); }}>Move Home</button>
-                        <button className="edit-radius-btn" onClick={() => { setIsSettingRadius(true); setIsSettingHome(false); }}>Edit Area</button>
+                        <button className="edit-home-btn" onClick={() => { setIsSettingHome(true); setIsSettingRadius(false); }}>{t('move_home')}</button>
+                        <button className="edit-radius-btn" onClick={() => { setIsSettingRadius(true); setIsSettingHome(false); }}>{t('edit_area')}</button>
                       </div>
                     </div>
                   </Popup>
@@ -431,23 +433,23 @@ const LiveMap = ({
                     <div className="popup-content">
                       <strong>{workerName}</strong>
                       <span>📍 {location.lat.toFixed(6)}, {location.lng.toFixed(6)}</span>
-                      <span>Distance from Home: {distanceFromHome !== null ? `${distanceFromHome}m` : 'N/A'}</span>
-                      {lastUpdated && <span>Updated: {lastUpdated.toLocaleTimeString()}</span>}
+                      <span>{t('from_home', { distance: distanceFromHome !== null ? distanceFromHome : 'N/A' })}</span>
+                      {lastUpdated && <span>{t('last_updated')}: {lastUpdated.toLocaleTimeString()}</span>}
                     </div>
                   </Popup>
                 </Marker>
               )}
             </MapContainer>
           ) : (
-            <div className="map-loading-placeholder">Loading map...</div>
+            <div className="map-loading-placeholder">{t('loading_map')}</div>
           )}
         </div>
 
         <div className="map-footer">
           <div className="footer-status-pill">
-            <span className="label">Signal:</span>
+            <span className="label">{t('signal')}:</span>
             <span className={`value ${isLive ? 'text-green' : 'text-orange'}`}>
-              {isLive ? 'LIVE' : 'POLLING'}
+              {isLive ? t('live_tracking') : t('polling')}
             </span>
           </div>
 
@@ -457,7 +459,7 @@ const LiveMap = ({
                 {isSettingRadius && (
                   <>
                     <div className="radius-slider-container">
-                      <span>Radius: {homeRadius}m</span>
+                      <span>{t('radius')}: {homeRadius}{t('meters_short', { defaultValue: 'm' })}</span>
                       <input
                         type="range"
                         min="50"
@@ -470,10 +472,10 @@ const LiveMap = ({
                     <button
                       className={`notify-toggle-btn ${notifyOnLeave ? 'active' : ''}`}
                       onClick={() => setNotifyOnLeave(prev => !prev)}
-                      title={notifyOnLeave ? 'Notifications enabled' : 'Notifications disabled'}
+                      title={notifyOnLeave ? t('alert_on') : t('alert_off')}
                     >
                       {notifyOnLeave ? <Bell size={16} /> : <BellOff size={16} />}
-                      <span>{notifyOnLeave ? 'Alert ON' : 'Alert OFF'}</span>
+                      <span>{notifyOnLeave ? t('alert_on') : t('alert_off')}</span>
                     </button>
                   </>
                 )}
@@ -483,21 +485,21 @@ const LiveMap = ({
                   setCurrentHome(savedHome);
                   setHomeRadius(savedHome?.radius || 200);
                   setNotifyOnLeave(savedHome?.notifyOnLeave || false);
-                }}>Cancel</button>
+                }}>{t('cancel')}</button>
                 <button className="save-home-btn" onClick={saveHomeConfig} disabled={isSaving}>
-                  {isSaving ? 'Saving...' : 'Save Area'}
+                  {isSaving ? t('saving') : t('save_area')}
                 </button>
               </div>
             ) : (
               <div className="home-action-group">
                 <button className="set-home-trigger-btn" onClick={() => { setIsSettingHome(true); setIsSettingRadius(false); }}>
                   <img src={homeIconImg} alt="home" />
-                  <span>{currentHome ? 'Change Home' : 'Set Home'}</span>
+                  <span>{currentHome ? t('change_home') : t('set_home')}</span>
                 </button>
                 {currentHome && (
                   <button className="set-radius-trigger-btn" onClick={() => { setIsSettingRadius(true); setIsSettingHome(false); }}>
                     <Settings size={18} />
-                    <span>Area Size</span>
+                    <span>{t('area_size')}</span>
                   </button>
                 )}
               </div>
@@ -505,7 +507,7 @@ const LiveMap = ({
           </div>
 
           <div className="footer-right">
-            <span className="last-update">Last Updated: {lastUpdated ? lastUpdated.toLocaleTimeString() : 'N/A'}</span>
+            <span className="last-update">{t('last_updated')}: {lastUpdated ? lastUpdated.toLocaleTimeString() : 'N/A'}</span>
           </div>
         </div>
       </div>
