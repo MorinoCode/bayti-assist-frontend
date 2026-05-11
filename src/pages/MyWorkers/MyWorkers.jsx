@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { UserPlus, Loader2, Users } from 'lucide-react';
+import toast from 'react-hot-toast';
 import MyWorkerCard from '../../components/MyWorkerCard/MyWorkerCard';
 import AddMyWorkerModal from '../../components/AddMyWorkerModal/AddMyWorkerModal';
 import Button from '../../components/Button/Button';
@@ -52,6 +53,32 @@ const MyWorkers = () => {
       setIsLoading(false);
     }
   }, []);
+
+  const handleInvite = async (workerId) => {
+    try {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/workers/invite`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userInfo.token}`
+        },
+        body: JSON.stringify({ workerId })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        toast.success('Invitation sent successfully!');
+        setIsModalOpen(false);
+        fetchWorkers();
+      } else {
+        toast.error(data.message || 'Failed to send invitation');
+      }
+    } catch (error) {
+      console.error('Error inviting worker:', error);
+      toast.error('Network error, please try again');
+    }
+  };
 
   useEffect(() => {
     if (userRole !== 'employer') {
@@ -117,7 +144,7 @@ const MyWorkers = () => {
         <AddMyWorkerModal 
           isOpen={isModalOpen} 
           onClose={() => setIsModalOpen(false)} 
-          onInvite={fetchWorkers} 
+          onInvite={handleInvite} 
         />
       </div>
     </div>
